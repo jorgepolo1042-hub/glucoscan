@@ -10,18 +10,23 @@
     "ios": {
       "supportsTablet": true,
       "usesAppleSignIn": true,
-      "associatedDomains": ["applinks:glucoscan.app"],
+      "associatedDomains": [
+        "applinks:glucoscan.app"
+      ],
       "infoPlist": {
         "NSCameraUsageDescription": "GlucoScan uses the camera to scan food barcodes and take photos of meals for nutritional analysis.",
         "NSPhotoLibraryUsageDescription": "GlucoScan may save food photos for your scan history.",
         "CFBundleURLTypes": [
           {
-            "CFBundleURLSchemes": ["glucoscan"]
+            "CFBundleURLSchemes": [
+              "glucoscan"
+            ]
           }
         ]
       }
     },
     "android": {
+      "package": "com.jorgepolo.glucoscan",
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -30,7 +35,8 @@
       },
       "predictiveBackGestureEnabled": false,
       "permissions": [
-        "android.permission.CAMERA"
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
       ],
       "intentFilters": [
         {
@@ -60,11 +66,14 @@
           "cameraPermission": "GlucoScan uses the camera to scan food barcodes and take photos of meals for nutritional analysis."
         }
       ],
-      "expo-apple-authentication",
-      "expo-auth-session",
-      "expo-web-browser",
-      "expo-sharing",
-      "expo-mail-composer"
-    ]
+      "expo-apple-authentication"
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "f9a7848d-0d29-436d-9caa-606efa987d2f"
+      }
+    },
+    "owner": "jorgepolo099"
   }
 }
