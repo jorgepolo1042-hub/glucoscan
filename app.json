@@ -1,0 +1,70 @@
+{
+  "expo": {
+    "name": "GlucoScan",
+    "slug": "glucoscan",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "glucoscan",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "usesAppleSignIn": true,
+      "associatedDomains": ["applinks:glucoscan.app"],
+      "infoPlist": {
+        "NSCameraUsageDescription": "GlucoScan uses the camera to scan food barcodes and take photos of meals for nutritional analysis.",
+        "NSPhotoLibraryUsageDescription": "GlucoScan may save food photos for your scan history.",
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": ["glucoscan"]
+          }
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFFFF",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.CAMERA"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "glucoscan"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "GlucoScan uses the camera to scan food barcodes and take photos of meals for nutritional analysis."
+        }
+      ],
+      "expo-apple-authentication",
+      "expo-auth-session",
+      "expo-web-browser",
+      "expo-sharing",
+      "expo-mail-composer"
+    ]
+  }
+}
