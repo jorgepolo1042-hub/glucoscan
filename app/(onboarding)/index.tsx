@@ -5,9 +5,11 @@ import { useAppStore } from '../../src/stores/appStore';
 export default function OnboardingRoute() {
   const router = useRouter();
   const setHasCompletedOnboarding = useAppStore((s) => s.setHasCompletedOnboarding);
+  const saveOnboardingComplete = useAppStore((s) => s.saveOnboardingComplete);
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
     setHasCompletedOnboarding(true);
+    await saveOnboardingComplete();
     router.replace('/(auth)');
   };
 

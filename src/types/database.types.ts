@@ -33,6 +33,16 @@ export interface Database {
         Insert: Omit<PlanRecipe, "id" | "created_at">;
         Update: Partial<Omit<PlanRecipe, "id">>;
       };
+      medical_documents: {
+        Row: MedicalDocument;
+        Insert: Omit<MedicalDocument, "id" | "created_at">;
+        Update: Partial<Omit<MedicalDocument, "id">>;
+      };
+      auto_export_settings: {
+        Row: AutoExportSetting;
+        Insert: Omit<AutoExportSetting, "id" | "created_at">;
+        Update: Partial<Omit<AutoExportSetting, "id">>;
+      };
     };
   };
 }
@@ -109,5 +119,29 @@ export interface PlanRecipe {
   instructions: string | null;
   calories: number | null;
   sugar_grams: number | null;
+  protein_grams: number | null;
+  carbs_grams: number | null;
+  fat_grams: number | null;
   created_at: string;
+}
+
+export interface MedicalDocument {
+  id: string;
+  user_id: string;
+  name: string;
+  storage_path: string;
+  page_count: number | null;
+  created_at: string;
+}
+
+export interface AutoExportSetting {
+  id: string;
+  user_id: string;
+  enabled: boolean;
+  frequency: string;
+  export_time: number;
+  email: string;
+  last_sent_at: string | null;
+  created_at: string;
+  updated_at: string;
 }

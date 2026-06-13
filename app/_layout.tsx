@@ -14,18 +14,19 @@ import {
 } from '../src/services/offlineService';
 
 export default function RootLayout() {
-  const { setUserId, setIsAuthLoading, setIsOffline, setPendingSync } = useAppStore();
+  const { setUserId, setIsAuthLoading, setIsOffline, setPendingSync, loadOnboardingStatus } = useAppStore();
 
-  // Check auth session
+  // Load persisted state and check auth simultaneously
   useEffect(() => {
-    supabase.auth
-      .getUser()
-      .then(({ data: { user } }) => {
+    Promise.all([
+      loadOnboardingStatus(),
+      supabase.auth.getUser().then(({ data: { user } }) => {
         if (user) {
           setUserId(user.id);
           initRevenueCat(user.id).catch(console.error);
         }
-      })
+      }),
+    ])
       .catch(() => {})
       .finally(() => setIsAuthLoading(false));
   }, []);

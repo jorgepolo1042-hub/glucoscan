@@ -1,6 +1,9 @@
 import { create } from 'zustand';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { ScanResult } from '../screens/ScannerScreen';
 import type { PlanWithRecipes } from '../services/planService';
+
+const ONBOARDING_KEY = 'glucoscan_onboarding_complete';
 
 interface AppState {
   // Auth
@@ -12,6 +15,8 @@ interface AppState {
   // Onboarding
   hasCompletedOnboarding: boolean;
   setHasCompletedOnboarding: (v: boolean) => void;
+  loadOnboardingStatus: () => Promise<void>;
+  saveOnboardingComplete: () => Promise<void>;
 
   // Navigation data (passthrough between screens)
   scanResult: ScanResult | null;
@@ -43,7 +48,20 @@ export const useAppStore = create<AppState>((set) => ({
 
   // Onboarding
   hasCompletedOnboarding: false,
-  setHasCompletedOnboarding: (hasCompletedOnboarding) => set({ hasCompletedOnboarding }),
+  setHasCompletedOnboarding: (value) => set({ hasCompletedOnboarding: value }),
+  loadOnboardingStatus: async () => {
+    try {
+      const stored = await AsyncStorage.getItem(ONBOARDING_KEY);
+      if (stored === 'true') {
+        set({ hasCompletedOnboarding: true });
+      }
+    } catch { /* ignore storage errors */ }
+  },
+  saveOnboardingComplete: async () => {
+    try {
+      await AsyncStorage.setItem(ONBOARDING_KEY, 'true');
+    } catch { /* ignore */ }
+  },
 
   // Navigation data
   scanResult: null,

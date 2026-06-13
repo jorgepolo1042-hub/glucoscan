@@ -101,11 +101,19 @@ export async function restorePurchases(): Promise<boolean> {
   }
 }
 
+/**
+ * Present the RevenueCat paywall UI.
+ * Requires react-native-purchases-ui to be installed.
+ * Falls back gracefully if the package is not available.
+ */
 export async function presentPaywall(): Promise<boolean> {
   try {
     const PurchasesUI = require("react-native-purchases-ui");
-    const customerInfo = await PurchasesUI.presentPaywall();
-    return customerInfo?.entitlements.active[ENTITLEMENT_ID] !== undefined;
+    if (PurchasesUI?.presentPaywall) {
+      const customerInfo = await PurchasesUI.presentPaywall();
+      return customerInfo?.entitlements.active[ENTITLEMENT_ID] !== undefined;
+    }
+    return false;
   } catch {
     return false;
   }
